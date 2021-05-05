@@ -1,0 +1,21 @@
+{
+  "name": "com.nowsprinting.create-script-folders-with-tests",
+  "displayName": "Create Script Folders with Tests",
+  "version": "1.0.0",
+  "unity": "2018.4",
+  "description": "Create a script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).",
+  "homepage": "https://github.com/nowsprinting/create-script-folders-with-tests",
+  "license": "MIT",
+  "author": "nowsprinting <hasegawa@hubsys.co.jp> (https://github.com/nowsprinting)",
+  "keywords": [
+    "Assembly Definition File",
+    "asmdef",
+    "tests"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nowsprinting/create-script-folders-with-tests.git"
+  },
+  "dependencies": {
+  }
+}

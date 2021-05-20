@@ -27,11 +27,14 @@ MyFeature
 If you installed [openupm-cli](https://github.com/openupm/openupm-cli), run the command below
 
 ```bash
-$ openupm add com.nowsprinting.create-script-folders-with-tests
+openupm add com.nowsprinting.create-script-folders-with-tests
 ```
 
-Or open Package Manager window (Window | Package Manager) and add package from git URL 
-`https://github.com/nowsprinting/create-script-folders-with-tests.git`.
+Or open Package Manager window (Window | Package Manager) and add package from git URL
+
+```
+https://github.com/nowsprinting/create-script-folders-with-tests.git
+```
 
 
 ## License

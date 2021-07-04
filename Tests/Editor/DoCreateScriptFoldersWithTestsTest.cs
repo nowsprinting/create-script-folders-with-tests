@@ -11,12 +11,16 @@ namespace CreateScriptFoldersWithTests.Editor
 {
     public class DoCreateScriptFoldersWithTestsTest
     {
-        private readonly string _path = Path.Combine("Assets", "_Test4CreateScriptFoldersWithTests");
+        private readonly string _path =
+            Path.Combine("Assets", "com.nowsprinting.create-script-folders-with-tests.test");
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            Assert.That(Directory.Exists(Path.GetFullPath(_path)), Is.False, "Folder does not exist before test");
+            AssetDatabase.DisallowAutoRefresh();
+
+            var exist = AssetDatabase.IsValidFolder(_path);
+            Assert.That(exist, Is.False, "Generated folder does not exist before test");
 
             var sut = ScriptableObject.CreateInstance<DoCreateScriptFoldersWithTests>();
             sut.Action(0, _path, null);
@@ -26,13 +30,14 @@ namespace CreateScriptFoldersWithTests.Editor
         [OneTimeTearDown]
         public void OneTimeTearDown()
         {
-            Directory.Delete(Path.GetFullPath(_path), true);
+            AssetDatabase.DeleteAsset(_path);
+            AssetDatabase.AllowAutoRefresh();
         }
 
         [Test]
         public void Action_CreatedRuntimeFolderContainingAsmdef()
         {
-            const string AssemblyName = "_Test4CreateScriptFoldersWithTests";
+            const string AssemblyName = "com.nowsprinting.create-script-folders-with-tests.test";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(Path.Combine(_path, "Scripts", "Runtime",
                 $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -49,7 +54,7 @@ namespace CreateScriptFoldersWithTests.Editor
         [Test]
         public void Action_CreatedEditorFolderContainingAsmdef()
         {
-            const string AssemblyName = "_Test4CreateScriptFoldersWithTests.Editor";
+            const string AssemblyName = "com.nowsprinting.create-script-folders-with-tests.test.Editor";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(Path.Combine(_path, "Scripts", "Editor",
                 $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -60,13 +65,13 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.True);
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
-            Assert.That(asmdef.references, Does.Contain("_Test4CreateScriptFoldersWithTests"));
+            Assert.That(asmdef.references, Does.Contain("com.nowsprinting.create-script-folders-with-tests.test"));
         }
 
         [Test]
         public void Action_CreatedRuntimeTestsFolderContainingAsmdef()
         {
-            const string AssemblyName = "_Test4CreateScriptFoldersWithTests.Tests";
+            const string AssemblyName = "com.nowsprinting.create-script-folders-with-tests.test.Tests";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(Path.Combine(_path, "Tests", "Runtime",
                 $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -77,7 +82,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.False);
             Assert.That(asmdef.defineConstraints, Does.Contain("UNITY_INCLUDE_TESTS"));
             Assert.That(asmdef.includePlatforms, Is.Empty);
-            Assert.That(asmdef.references, Does.Contain("_Test4CreateScriptFoldersWithTests"));
+            Assert.That(asmdef.references, Does.Contain("com.nowsprinting.create-script-folders-with-tests.test"));
 #if UNITY_2019_3_OR_NEWER
             Assert.That(asmdef.references, Does.Contain("UnityEngine.TestRunner"));
             Assert.That(asmdef.references, Does.Contain("UnityEditor.TestRunner"));
@@ -92,7 +97,7 @@ namespace CreateScriptFoldersWithTests.Editor
         [Test]
         public void Action_CreatedEditorTestsFolderContainingAsmdef()
         {
-            const string AssemblyName = "_Test4CreateScriptFoldersWithTests.Editor.Tests";
+            const string AssemblyName = "com.nowsprinting.create-script-folders-with-tests.test.Editor.Tests";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(Path.Combine(_path, "Tests", "Editor",
                 $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -103,8 +108,8 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.False);
             Assert.That(asmdef.defineConstraints, Does.Contain("UNITY_INCLUDE_TESTS"));
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
-            Assert.That(asmdef.references, Does.Contain("_Test4CreateScriptFoldersWithTests.Editor"));
-            Assert.That(asmdef.references, Does.Contain("_Test4CreateScriptFoldersWithTests"));
+            Assert.That(asmdef.references, Does.Contain("com.nowsprinting.create-script-folders-with-tests.test.Editor"));
+            Assert.That(asmdef.references, Does.Contain("com.nowsprinting.create-script-folders-with-tests.test"));
 #if UNITY_2019_3_OR_NEWER
             Assert.That(asmdef.references, Does.Contain("UnityEngine.TestRunner"));
             Assert.That(asmdef.references, Does.Contain("UnityEditor.TestRunner"));

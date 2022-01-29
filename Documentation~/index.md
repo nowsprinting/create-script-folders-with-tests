@@ -1,8 +1,8 @@
-# Create Script Folders with Tests
+# Create Script Folders and Assemblies with Tests
 
 This Unity Editor Extensions create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).
 
-When opening the context menu and select **Create | C# Script Folders with Tests**,
+When opening the context menu and select **Create | C# Script Folders and Assemblies with Tests**,
 The root folder (e.g., named "MyFeature") and below will be created as follows.
 
 ```

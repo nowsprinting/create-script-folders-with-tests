@@ -9,7 +9,7 @@ namespace CreateScriptFoldersWithTests.Editor
 {
     public static class CreateScriptFoldersWithTestsMenu
     {
-        [MenuItem("Assets/Create/C# Script Folders with Tests")]
+        [MenuItem("Assets/Create/C# Script Folders and Assemblies with Tests")]
         private static void CreateFeatureFolderWithTestsMenuItem()
         {
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(

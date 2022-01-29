@@ -5,6 +5,9 @@ template: |
   ## What’s Changed
   $CHANGES
 
+  ## Installation
+  https://openupm.com/packages/com.nowsprinting.create-script-folders-with-tests/
+
 categories:
   - title: '🦑 Features'
     labels:

@@ -1,6 +1,6 @@
 {
   "name": "com.nowsprinting.create-script-folders-with-tests",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "displayName": "Create Script Folders and Assemblies with Tests",
   "description": "Create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).",
   "unity": "2018.4",

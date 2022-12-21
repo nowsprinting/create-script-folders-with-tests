@@ -21,6 +21,13 @@ MyFeature
         └── MyFeature.Tests.asmdef
 ```
 
+And the references of each asmdef are set as follows.
+
+- `MyFeature` has not references
+- `MyFeature.Editor` has references to `MyFeature`
+- `MyFeature.Tests` has references to `MyFeature`
+- `MyFeature.Editor.Tests` has references to `MyFeature` and `MyFeature.Editor`
+
 
 ## Installation
 

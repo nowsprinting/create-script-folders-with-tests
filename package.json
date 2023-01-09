@@ -1,20 +1,21 @@
 {
   "name": "com.nowsprinting.create-script-folders-with-tests",
-  "version": "1.1.1",
-  "displayName": "Create Script Folders and Assemblies with Tests",
   "description": "Create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).",
-  "unity": "2018.4",
-  "unityRelease": "0f1",
-  "documentationUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/blob/master/README.md",
+  "version": "1.1.1",
+  "author": "Koji Hasegawa <hasegawa@hubsys.co.jp> (https://github.com/nowsprinting)",
   "changelogUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/releases",
-  "licensesUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/blob/master/LICENSE.md",
-  "license": "MIT",
   "dependencies": {},
+  "displayName": "Create Script Folders and Assemblies with Tests",
+  "documentationUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/blob/master/README.md",
   "keywords": [
     "Assembly Definition File",
     "asmdef",
     "script",
     "tests"
   ],
-  "author": "Koji Hasegawa <hasegawa@hubsys.co.jp> (https://github.com/nowsprinting)"
+  "license": "MIT",
+  "licensesUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/blob/master/LICENSE.md",
+  "repository": "https://github.com/nowsprinting/create-script-folders-with-tests",
+  "unity": "2018.4",
+  "unityRelease": "0f1"
 }

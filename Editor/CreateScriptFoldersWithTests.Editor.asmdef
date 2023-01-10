@@ -1,5 +1,6 @@
 {
     "name": "CreateScriptFoldersWithTests.Editor",
+    "rootNamespace": "",
     "references": [],
     "includePlatforms": [
         "Editor"
@@ -8,7 +9,7 @@
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],
-    "autoReferenced": true,
+    "autoReferenced": false,
     "defineConstraints": [],
     "versionDefines": [],
     "noEngineReferences": false

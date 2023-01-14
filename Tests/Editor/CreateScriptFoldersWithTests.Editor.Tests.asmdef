@@ -1,6 +1,6 @@
 {
     "name": "CreateScriptFoldersWithTests.Editor.Tests",
-    "rootNamespace": "",
+    "rootNamespace": "CreateScriptFoldersWithTests.Editor",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

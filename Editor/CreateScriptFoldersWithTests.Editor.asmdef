@@ -1,6 +1,6 @@
 {
     "name": "CreateScriptFoldersWithTests.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "CreateScriptFoldersWithTests.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

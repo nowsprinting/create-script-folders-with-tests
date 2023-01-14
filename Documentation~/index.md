@@ -26,7 +26,4 @@ And the references of each asmdef are set as follows.
 - `MyFeature.Tests` has references to `MyFeature`
 - `MyFeature.Editor.Tests` has references to `MyFeature` and `MyFeature.Editor`
 
-
-## More information
-
 See [GitHub repository](https://github.com/nowsprinting/create-script-folders-with-tests) for more information.

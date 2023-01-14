@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.IO;
@@ -45,7 +45,7 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             var moduleName = Path.GetFileName(pathName);
             var assemblyName = AssemblyName(moduleName, firstLayerName, secondLayerName);
-            var asmdef = new AssemblyDefinition {name = assemblyName};
+            var asmdef = new AssemblyDefinition { name = assemblyName };
 
             if (firstLayerName == Tests)
             {
@@ -56,9 +56,11 @@ namespace CreateScriptFoldersWithTests.Editor
 
             if (secondLayerName == Editor)
             {
-                asmdef.includePlatforms = new[] {"Editor"};
+                asmdef.includePlatforms = new[] { "Editor" };
                 asmdef.AddReferences(moduleName);
             }
+
+            asmdef.rootNamespace = assemblyName.Replace($".{Tests}", "");
 
             var path = Path.Combine(pathName, firstLayerName, secondLayerName, $"{assemblyName}.asmdef");
             CreateScriptAssetWithContent(path, EditorJsonUtility.ToJson(asmdef));
@@ -91,7 +93,7 @@ namespace CreateScriptFoldersWithTests.Editor
                 return;
             }
 
-            createScriptAssetWithContentMethod.Invoke(null, new object[] {path, content});
+            createScriptAssetWithContentMethod.Invoke(null, new object[] { path, content });
         }
     }
 }

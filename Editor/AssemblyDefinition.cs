@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -32,17 +32,18 @@ namespace CreateScriptFoldersWithTests.Editor
         // Optional. The file names of referenced DLL libraries including extension, but without other path elements. Can be empty.
         // This array is ignored unless you set overrideReferences to true.
 
-        public string[]
-            references; // Optional. References to other assemblies created with Assembly Definition assets.
+        public string[] references;
+        // Optional. References to other assemblies created with Assembly Definition assets.
 
+        public string rootNamespace; // Optional. The default namespace for scripts in this assembly definition.
         public object[] versionDefines; // Optional. Contains an object for each version define.
 
         public void SetForTestAssembly()
         {
-            defineConstraints = new[] {"UNITY_INCLUDE_TESTS"};
+            defineConstraints = new[] { "UNITY_INCLUDE_TESTS" };
 #if UNITY_2019_3_OR_NEWER
             overrideReferences = true;
-            precompiledReferences = new[] {"nunit.framework.dll"};
+            precompiledReferences = new[] { "nunit.framework.dll" };
             AddReferences("UnityEngine.TestRunner");
             AddReferences("UnityEditor.TestRunner");
 #else

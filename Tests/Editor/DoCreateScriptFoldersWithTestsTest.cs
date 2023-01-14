@@ -11,8 +11,8 @@ namespace CreateScriptFoldersWithTests.Editor
 {
     public class DoCreateScriptFoldersWithTestsTest
     {
-        private const string RootFolderName = "CreateScriptFoldersWithTestsTest";
-        private readonly string _rootFolderPath = Path.Combine("Assets", RootFolderName);
+        private const string ModuleName = "CreateScriptFoldersWithTestsTest";
+        private readonly string _rootFolderPath = Path.Combine("Assets", ModuleName);
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -37,7 +37,7 @@ namespace CreateScriptFoldersWithTests.Editor
         [Test]
         public void Action_CreatedRuntimeFolderContainingAsmdef()
         {
-            const string AssemblyName = RootFolderName + "";
+            const string AssemblyName = ModuleName + "";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
                 Path.Combine(_rootFolderPath, "Scripts", "Runtime", $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -49,12 +49,13 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Is.Empty);
             Assert.That(asmdef.references, Is.Empty);
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
         }
 
         [Test]
         public void Action_CreatedEditorFolderContainingAsmdef()
         {
-            const string AssemblyName = RootFolderName + ".Editor";
+            const string AssemblyName = ModuleName + ".Editor";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
                 Path.Combine(_rootFolderPath, "Scripts", "Editor", $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -65,13 +66,14 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.True);
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
-            Assert.That(asmdef.references, Does.Contain(RootFolderName));
+            Assert.That(asmdef.references, Does.Contain(ModuleName));
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
         }
 
         [Test]
         public void Action_CreatedRuntimeTestsFolderContainingAsmdef()
         {
-            const string AssemblyName = RootFolderName + ".Tests";
+            const string AssemblyName = ModuleName + ".Tests";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
                 Path.Combine(_rootFolderPath, "Tests", "Runtime", $"{AssemblyName}.asmdef"));
             Assert.That(file, Is.Not.Null);
@@ -82,7 +84,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.False);
             Assert.That(asmdef.defineConstraints, Does.Contain("UNITY_INCLUDE_TESTS"));
             Assert.That(asmdef.includePlatforms, Is.Empty);
-            Assert.That(asmdef.references, Does.Contain(RootFolderName));
+            Assert.That(asmdef.references, Does.Contain(ModuleName));
 #if UNITY_2019_3_OR_NEWER
             Assert.That(asmdef.references, Does.Contain("UnityEngine.TestRunner"));
             Assert.That(asmdef.references, Does.Contain("UnityEditor.TestRunner"));
@@ -92,12 +94,13 @@ namespace CreateScriptFoldersWithTests.Editor
 #else
             Assert.That(asmdef.optionalUnityReferences, Does.Contain("TestAssemblies"));
 #endif
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(ModuleName));
         }
 
         [Test]
         public void Action_CreatedEditorTestsFolderContainingAsmdef()
         {
-            const string EditorAssemblyName = RootFolderName + ".Editor";
+            const string EditorAssemblyName = ModuleName + ".Editor";
             const string AssemblyName = EditorAssemblyName + ".Tests";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
                 Path.Combine(_rootFolderPath, "Tests", "Editor", $"{AssemblyName}.asmdef"));
@@ -109,7 +112,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.autoReferenced, Is.False);
             Assert.That(asmdef.defineConstraints, Does.Contain("UNITY_INCLUDE_TESTS"));
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
-            Assert.That(asmdef.references, Does.Contain(RootFolderName));
+            Assert.That(asmdef.references, Does.Contain(ModuleName));
             Assert.That(asmdef.references, Does.Contain(EditorAssemblyName));
 #if UNITY_2019_3_OR_NEWER
             Assert.That(asmdef.references, Does.Contain("UnityEngine.TestRunner"));
@@ -120,6 +123,7 @@ namespace CreateScriptFoldersWithTests.Editor
 #else
             Assert.That(asmdef.optionalUnityReferences, Does.Contain("TestAssemblies"));
 #endif
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(EditorAssemblyName));
         }
     }
 }

@@ -7,12 +7,11 @@ BUILD_DIR?=$(PROJECT_HOME)/Build
 LOG_DIR?=$(PROJECT_HOME)/Logs
 UNITY_VERSION?=$(shell grep '"unity":' $(PACKAGE_HOME)/package.json | grep -o -E '\d{4}\.[1-4]').$(shell grep '"unityRelease":' $(PACKAGE_HOME)/package.json | grep -o -E '\d+[abfp]\d+')
 PACKAGE_NAME?=$(shell grep -o -E '"name": "(.+)"' $(PACKAGE_HOME)/package.json | cut -d ' ' -f2)
-ASSEMBLY_NAME?=$(shell ls $(PACKAGE_HOME)/Runtime/*.asmdef| sed -e s/.*\\/// | sed -e s/.asmdef//)
+ASSEMBLY_NAME?=$(shell find $(PACKAGE_HOME)/Editor -name "*.asmdef" | sed -e s/.*\\/// | sed -e s/\\.Editor\\.asmdef//)
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
-COVERAGE_ASSEMBLY_FILTERS?=+$(ASSEMBLY_NAME)*,-*Tests
-
+COVERAGE_ASSEMBLY_FILTERS?=+$(ASSEMBLY_NAME)*,-*.Tests
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)

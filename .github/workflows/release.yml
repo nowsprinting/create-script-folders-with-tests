@@ -1,3 +1,6 @@
+# Copyright (c) 2021-2023 Koji Hasegawa.
+# This software is released under the MIT License.
+
 name: Release if bump version number
 
 on:
@@ -7,6 +10,7 @@ on:
     paths:
       - package.json
 
+permissions: write-all
 jobs:
   check-bump-version:
     runs-on: ubuntu-latest

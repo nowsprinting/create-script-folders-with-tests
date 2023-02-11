@@ -1,3 +1,6 @@
+# Copyright (c) 2021-2023 Koji Hasegawa.
+# This software is released under the MIT License.
+
 name: Meta file check
 
 on:
@@ -7,6 +10,7 @@ on:
   pull_request:
     types: [ opened, synchronize, reopened ]  # Same as default
 
+permissions: write-all
 jobs:
   meta-check:
     runs-on: ubuntu-latest

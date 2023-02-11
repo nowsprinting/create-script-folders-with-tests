@@ -1,9 +1,13 @@
+# Copyright (c) 2021-2023 Koji Hasegawa.
+# This software is released under the MIT License.
+
 name: Create release pull request
 # Must manually add the label `skip-changelog` to the repository before running this workflow.
 
 on:
   workflow_dispatch:
 
+permissions: write-all
 jobs:
   create-release-pr:
     runs-on: ubuntu-latest

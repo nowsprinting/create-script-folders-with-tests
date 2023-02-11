@@ -87,7 +87,6 @@ jobs:
 
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
-        id: license
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2

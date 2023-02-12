@@ -6,29 +6,62 @@
 
 This Unity Editor Extensions create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).
 
+
+### Using under Assets folder:
+
 When opening the context menu and select **Create | C# Script Folders and Assemblies with Tests**,
-The root folder (e.g., named "MyFeature") and below will be created as follows.
+The root folder (e.g., named "YourFeature") and below will be created as follows.
 
 ```
-MyFeature
-├── Scripts
-│   ├── Editor
-│   │   └── MyFeature.Editor.asmdef
-│   └── Runtime
-│       └── MyFeature.asmdef
-└── Tests
-    ├── Editor
-    │   └── MyFeature.Editor.Tests.asmdef
-    └── Runtime
-        └── MyFeature.Tests.asmdef
+Assets
+└── YourFeature
+   ├── Scripts
+   │   ├── Editor
+   │   │   └── YourFeature.Editor.asmdef
+   │   └── Runtime
+   │       └── YourFeature.asmdef
+   └── Tests
+       ├── Editor
+       │   └── YourFeature.Editor.Tests.asmdef
+       └── Runtime
+           └── YourFeature.Tests.asmdef
 ```
 
 And the references of each asmdef are set as follows.
 
-- `MyFeature` has not references
-- `MyFeature.Editor` has references to `MyFeature`
-- `MyFeature.Tests` has references to `MyFeature`
-- `MyFeature.Editor.Tests` has references to `MyFeature` and `MyFeature.Editor`
+- `YourFeature` has not references
+- `YourFeature.Editor` has references to `YourFeature`
+- `YourFeature.Tests` has references to `YourFeature`
+- `YourFeature.Editor.Tests` has references to `YourFeature` and `YourFeature.Editor`
+
+
+### Using under Packages folder:
+
+First, your package folder (e.g., named "your.package.name") must be created in advance.
+Because can not open the context menu directly under the Packages folder.
+
+Next, opening the context menu and select **Create | C# Script Folders and Assemblies with Tests**,
+The root folder (e.g., named "YourFeature") and below will be created as follows.
+
+```
+Packages
+└── your.package.name
+   └── YourFeature
+      ├── Editor
+      │   └── YourFeature.Editor.asmdef
+      ├── Runtime
+      │   └── YourFeature.asmdef
+      └── Tests
+          ├── Editor
+          │   └── YourFeature.Editor.Tests.asmdef
+          └── Runtime
+              └── YourFeature.Tests.asmdef
+```
+
+After creating folders, move the Editor, Runtime and Tests folders directly under the "your.package.name" folder.
+And remove the "YourFeature" folder.
+
+Then it will be the same as the official [Package layout](https://docs.unity3d.com/Manual/cus-layout.html).
 
 
 ## Installation

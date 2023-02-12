@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using UnityEditor;
@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace CreateScriptFoldersWithTests.Editor
 {
+    /// <summary>
+    /// Create C# script folders and assemblies with tests via context menu.
+    /// </summary>
     public static class CreateScriptFoldersWithTestsMenu
     {
         [MenuItem("Assets/Create/C# Script Folders and Assemblies with Tests")]

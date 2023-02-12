@@ -10,7 +10,9 @@ using UnityEngine;
 
 namespace CreateScriptFoldersWithTests.Editor
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// Create C# script folders and assemblies with tests.
+    /// </summary>
     public class DoCreateScriptFoldersWithTests : EndNameEditAction
     {
         private const string Scripts = "Scripts";

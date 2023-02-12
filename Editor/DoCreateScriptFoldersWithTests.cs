@@ -25,31 +25,34 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             var moduleName = Path.GetFileName(pathName);
             AssetDatabase.CreateFolder(Path.GetDirectoryName(pathName), moduleName);
-            CreateFirstLayer(pathName, Scripts);
+            CreateFirstLayer(pathName, IsUnderAssets(pathName) ? Scripts : null);
             CreateFirstLayer(pathName, Tests);
         }
 
         private static void CreateFirstLayer(string pathName, string firstLayerName)
         {
-            AssetDatabase.CreateFolder(pathName, firstLayerName);
+            if (firstLayerName != null)
+            {
+                AssetDatabase.CreateFolder(pathName, firstLayerName);
+            }
+
             CreateSecondLayer(pathName, firstLayerName, Runtime);
             CreateSecondLayer(pathName, firstLayerName, Editor);
         }
 
         private static void CreateSecondLayer(string pathName, string firstLayerName, string secondLayerName)
         {
-            AssetDatabase.CreateFolder(Path.Combine(pathName, firstLayerName), secondLayerName);
+            AssetDatabase.CreateFolder(PathCombineAllowNull(pathName, firstLayerName), secondLayerName);
             CreateAssemblyDefinitionFile(pathName, firstLayerName, secondLayerName);
         }
 
-        private static void CreateAssemblyDefinitionFile(string pathName, string firstLayerName,
-            string secondLayerName)
+        private static void CreateAssemblyDefinitionFile(string pathName, string firstLayerName, string secondLayerName)
         {
             var moduleName = Path.GetFileName(pathName);
             var assemblyName = AssemblyName(moduleName, firstLayerName, secondLayerName);
             var asmdef = new AssemblyDefinition { name = assemblyName };
 
-            if (firstLayerName == Tests)
+            if (firstLayerName is Tests)
             {
                 asmdef.autoReferenced = false;
                 asmdef.SetForTestAssembly();
@@ -64,7 +67,8 @@ namespace CreateScriptFoldersWithTests.Editor
 
             asmdef.rootNamespace = assemblyName.Replace($".{Tests}", "");
 
-            var path = Path.Combine(pathName, firstLayerName, secondLayerName, $"{assemblyName}.asmdef");
+            var path = Path.Combine(
+                PathCombineAllowNull(pathName, firstLayerName), secondLayerName, $"{assemblyName}.asmdef");
             CreateScriptAssetWithContent(path, EditorJsonUtility.ToJson(asmdef));
         }
 
@@ -76,7 +80,7 @@ namespace CreateScriptFoldersWithTests.Editor
                 assemblyName.Append($".{Editor}");
             }
 
-            if (firstLayerName == Tests)
+            if (firstLayerName is Tests)
             {
                 assemblyName.Append($".{Tests}");
             }
@@ -96,6 +100,16 @@ namespace CreateScriptFoldersWithTests.Editor
             }
 
             createScriptAssetWithContentMethod.Invoke(null, new object[] { path, content });
+        }
+
+        private static bool IsUnderAssets(string pathName)
+        {
+            return pathName.StartsWith("Assets/");
+        }
+
+        private static string PathCombineAllowNull(string pathName, string firstLayerName)
+        {
+            return firstLayerName != null ? Path.Combine(pathName, firstLayerName) : pathName;
         }
     }
 }

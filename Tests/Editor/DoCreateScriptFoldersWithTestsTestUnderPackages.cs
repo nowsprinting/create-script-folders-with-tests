@@ -9,10 +9,12 @@ using UnityEngine;
 
 namespace CreateScriptFoldersWithTests.Editor
 {
-    public class DoCreateScriptFoldersWithTestsTest
+    public class DoCreateScriptFoldersWithTestsTestUnderPackages
     {
         private const string ModuleName = "CreateScriptFoldersWithTestsTarget";
-        private readonly string _rootFolderPath = Path.Combine("Assets", ModuleName);
+
+        private readonly string _rootFolderPath =
+            Path.Combine("Packages", "com.nowsprinting.create-script-folders-with-tests", ModuleName);
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -39,7 +41,8 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             const string AssemblyName = ModuleName + "";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
-                Path.Combine(_rootFolderPath, "Scripts", "Runtime", $"{AssemblyName}.asmdef"));
+                Path.Combine(_rootFolderPath, "Runtime", $"{AssemblyName}.asmdef"));
+            // Not create Scripts directory when under Packages
             Assert.That(file, Is.Not.Null);
 
             var asmdef = new AssemblyDefinition();
@@ -57,7 +60,8 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             const string AssemblyName = ModuleName + ".Editor";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
-                Path.Combine(_rootFolderPath, "Scripts", "Editor", $"{AssemblyName}.asmdef"));
+                Path.Combine(_rootFolderPath, "Editor", $"{AssemblyName}.asmdef"));
+            // Not create Scripts directory when under Packages
             Assert.That(file, Is.Not.Null);
 
             var asmdef = new AssemblyDefinition();

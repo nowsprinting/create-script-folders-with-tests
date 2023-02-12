@@ -52,7 +52,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Is.Empty);
             Assert.That(asmdef.references, Is.Empty);
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(ModuleName));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
             Assert.That(asmdef.references, Does.Contain(ModuleName));
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(ModuleName));
         }
 
         [Test]
@@ -127,7 +127,7 @@ namespace CreateScriptFoldersWithTests.Editor
 #else
             Assert.That(asmdef.optionalUnityReferences, Does.Contain("TestAssemblies"));
 #endif
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(EditorAssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.EqualTo(ModuleName));
         }
     }
 }

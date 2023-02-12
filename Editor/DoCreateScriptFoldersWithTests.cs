@@ -65,7 +65,10 @@ namespace CreateScriptFoldersWithTests.Editor
                 asmdef.AddReferences(moduleName);
             }
 
-            asmdef.rootNamespace = assemblyName.Replace($".{Tests}", "");
+            if (IsUnderPackages(pathName))
+            {
+                asmdef.rootNamespace = moduleName;
+            }
 
             var path = Path.Combine(
                 PathCombineAllowNull(pathName, firstLayerName), secondLayerName, $"{assemblyName}.asmdef");
@@ -105,6 +108,11 @@ namespace CreateScriptFoldersWithTests.Editor
         private static bool IsUnderAssets(string pathName)
         {
             return pathName.StartsWith("Assets/");
+        }
+
+        private static bool IsUnderPackages(string pathName)
+        {
+            return !IsUnderAssets(pathName);
         }
 
         private static string PathCombineAllowNull(string pathName, string firstLayerName)

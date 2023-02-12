@@ -8,24 +8,26 @@ using System.Linq;
 namespace CreateScriptFoldersWithTests.Editor
 {
     /// <summary>
-    /// <see cref="https://docs.unity3d.com/Manual/AssemblyDefinitionFileFormat.html"/>
+    /// <see href="https://docs.unity3d.com/Manual/AssemblyDefinitionFileFormat.html"/>
     /// </summary>
     [Serializable]
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "MissingXmlDoc")]
+    [SuppressMessage("ReSharper", "NotAccessedField.Global")]
     public class AssemblyDefinition
     {
-        public bool allowUnsafeCode = false; //Optional. Defaults to false.
+        public bool allowUnsafeCode; //Optional. Defaults to false.
         public bool autoReferenced = true; //Optional. Defaults to true.
         public string[] defineConstraints; // Optional. The symbols that serve as constraints. Can be empty.
         public string[] excludePlatforms; // Optional. The platform name strings to exclude or an empty array.
         public string[] includePlatforms; // Optional. The platform name strings to exclude or an empty array.
         public string name; // Required.
-        public bool noEngineReferences = false; // Optional. Defaults to false.
+        public bool noEngineReferences; // Optional. Defaults to false.
 
         public string[] optionalUnityReferences;
         // Optional. In earlier versions of Unity, this field serialized the Unity References : Test Assemblies option used to designate the assembly as a test assembly
 
-        public bool overrideReferences = false;
+        public bool overrideReferences;
         // Optional. Set to true if precompiledReferences contains values. Defaults to false.
 
         public string[] precompiledReferences;

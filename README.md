@@ -34,6 +34,8 @@ And the references of each asmdef are set as follows.
 - `YourFeature.Tests` has references to `YourFeature`
 - `YourFeature.Editor.Tests` has references to `YourFeature` and `YourFeature.Editor`
 
+It also creates DotSettings files including disable [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) setting.
+
 
 ### Using under Packages folder:
 
@@ -61,7 +63,7 @@ Packages
 After creating folders, move the Editor, Runtime and Tests folders directly under the "your.package.name" folder.
 And remove the "YourFeature" folder.
 
-Then it will be the same as the official [Package layout](https://docs.unity3d.com/Manual/cus-layout.html).
+Then it will be the same as the official [package layout](https://docs.unity3d.com/Manual/cus-layout.html).
 
 
 ## Installation

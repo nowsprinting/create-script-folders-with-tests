@@ -12,15 +12,25 @@ namespace CreateScriptFoldersWithTests.Editor
     public class DoCreateScriptFoldersWithTestsTest
     {
         private const string ModuleName = "CreateScriptFoldersWithTestsTarget";
+        private const string DotSettingsSuffix = ".csproj.DotSettings";
         private readonly string _rootFolderPath = Path.Combine("Assets", ModuleName);
+        private static readonly string s_rootEncoded = "assets_005C" + ModuleName.ToLower();
+        private static readonly string s_foldersToSkipScripts = $"{s_rootEncoded}_005Cscripts/";
+        private static readonly string s_foldersToSkipScriptsRuntime = $"{s_rootEncoded}_005Cscripts_005Cruntime/";
+        private static readonly string s_foldersToSkipTests = $"{s_rootEncoded}_005Ctests/";
+        private static readonly string s_foldersToSkipTestsRuntime = $"{s_rootEncoded}_005Ctests_005Cruntime/";
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             AssetDatabase.DisallowAutoRefresh();
 
-            var exist = AssetDatabase.IsValidFolder(_rootFolderPath);
-            Assume.That(exist, Is.False, "Generated folder does not exist before test");
+            // Generated folder and files does not exist before test
+            Assume.That(AssetDatabase.IsValidFolder(_rootFolderPath), Is.False);
+            Assume.That(new FileInfo(ModuleName + DotSettingsSuffix), Does.Not.Exist);
+            Assume.That(new FileInfo(ModuleName + ".Editor" + DotSettingsSuffix), Does.Not.Exist);
+            Assume.That(new FileInfo(ModuleName + ".Tests" + DotSettingsSuffix), Does.Not.Exist);
+            Assume.That(new FileInfo(ModuleName + ".Editor.Tests" + DotSettingsSuffix), Does.Not.Exist);
 
             var sut = ScriptableObject.CreateInstance<DoCreateScriptFoldersWithTests>();
             sut.Action(0, _rootFolderPath, null);
@@ -49,7 +59,14 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Is.Empty);
             Assert.That(asmdef.references, Is.Empty);
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.Empty);
+
+            const string DotSettingsPath = AssemblyName + DotSettingsSuffix;
+            Assume.That(new FileInfo(DotSettingsPath), Does.Exist);
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipScripts));
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipScriptsRuntime));
+
+            File.Delete(DotSettingsPath);
         }
 
         [Test]
@@ -67,7 +84,13 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.defineConstraints, Is.Empty);
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
             Assert.That(asmdef.references, Does.Contain(ModuleName));
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(AssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.Empty);
+
+            const string DotSettingsPath = AssemblyName + DotSettingsSuffix;
+            Assume.That(new FileInfo(DotSettingsPath), Does.Exist);
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipScripts));
+
+            File.Delete(DotSettingsPath);
         }
 
         [Test]
@@ -94,7 +117,14 @@ namespace CreateScriptFoldersWithTests.Editor
 #else
             Assert.That(asmdef.optionalUnityReferences, Does.Contain("TestAssemblies"));
 #endif
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(ModuleName));
+            Assert.That(asmdef.rootNamespace, Is.Empty);
+
+            const string DotSettingsPath = AssemblyName + DotSettingsSuffix;
+            Assume.That(new FileInfo(DotSettingsPath), Does.Exist);
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipTests));
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipTestsRuntime));
+
+            File.Delete(DotSettingsPath);
         }
 
         [Test]
@@ -123,7 +153,13 @@ namespace CreateScriptFoldersWithTests.Editor
 #else
             Assert.That(asmdef.optionalUnityReferences, Does.Contain("TestAssemblies"));
 #endif
-            Assert.That(asmdef.rootNamespace, Is.EqualTo(EditorAssemblyName));
+            Assert.That(asmdef.rootNamespace, Is.Empty);
+
+            const string DotSettingsPath = AssemblyName + DotSettingsSuffix;
+            Assume.That(new FileInfo(DotSettingsPath), Does.Exist);
+            Assert.That(File.ReadAllText(DotSettingsPath), Does.Contain(s_foldersToSkipTests));
+
+            File.Delete(DotSettingsPath);
         }
     }
 }

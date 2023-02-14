@@ -4,6 +4,7 @@
 using System.IO;
 using System.Reflection;
 using System.Text;
+using CreateScriptFoldersWithTests.Editor.Internals;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             AssetDatabase.CreateFolder(PathCombineAllowNull(pathName, firstLayerName), secondLayerName);
             CreateAssemblyDefinitionFile(pathName, firstLayerName, secondLayerName);
+            CreateDotSettingsFile(pathName, firstLayerName, secondLayerName);
         }
 
         private static void CreateAssemblyDefinitionFile(string pathName, string firstLayerName, string secondLayerName)
@@ -65,11 +67,37 @@ namespace CreateScriptFoldersWithTests.Editor
                 asmdef.AddReferences(moduleName);
             }
 
-            asmdef.rootNamespace = assemblyName.Replace($".{Tests}", "");
+            if (IsUnderPackages(pathName))
+            {
+                asmdef.rootNamespace = moduleName;
+            }
 
             var path = Path.Combine(
                 PathCombineAllowNull(pathName, firstLayerName), secondLayerName, $"{assemblyName}.asmdef");
             CreateScriptAssetWithContent(path, EditorJsonUtility.ToJson(asmdef));
+        }
+
+        private static void CreateDotSettingsFile(string pathName, string firstLayerName, string secondLayerName)
+        {
+            var moduleName = Path.GetFileName(pathName);
+            var assemblyName = AssemblyName(moduleName, firstLayerName, secondLayerName);
+            var dotSettingsCreator = new DotSettingsCreator(assemblyName);
+
+            if (firstLayerName is Scripts || firstLayerName is Tests)
+            {
+                dotSettingsCreator.AddNamespaceFoldersToSkip(Path.Combine(pathName, firstLayerName));
+            }
+
+            if (secondLayerName == Runtime)
+            {
+                dotSettingsCreator.AddNamespaceFoldersToSkip(
+                    Path.Combine(PathCombineAllowNull(pathName, firstLayerName), secondLayerName));
+            }
+
+            if (dotSettingsCreator.WasAddNamespaceFoldersToSkip())
+            {
+                dotSettingsCreator.Flush();
+            }
         }
 
         private static string AssemblyName(string moduleName, string firstLayerName, string secondLayerName)
@@ -105,6 +133,11 @@ namespace CreateScriptFoldersWithTests.Editor
         private static bool IsUnderAssets(string pathName)
         {
             return pathName.StartsWith("Assets/");
+        }
+
+        private static bool IsUnderPackages(string pathName)
+        {
+            return !IsUnderAssets(pathName);
         }
 
         private static string PathCombineAllowNull(string pathName, string firstLayerName)

@@ -83,7 +83,7 @@ Packages
 ### Creating DotSettings files
 
 And creating .csproj.DotSettings file for each assembly.
-This file is set up to make the "Namespace does not correspond to file location" inspection work as expected in JetBrains Rider.
+This file is set up to make the [Namespace does not correspond to file location](https://www.jetbrains.com/help/rider/CheckNamespace.html) inspection work as expected in JetBrains Rider.
 Do not forget to commit .DotSettings files for that project.
 
 Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders.
@@ -100,10 +100,7 @@ This will result in the expected namespace per folder as follows.
 - Tests/Editor: YourFeature.Editor
 - Tests/Runtime: YourFeature
 
-See more information:
-
-- [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
-- [Code Inspection: Namespace does not correspond to file location | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/CheckNamespace.html)
+See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
 
 
 ## Installation

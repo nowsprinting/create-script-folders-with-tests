@@ -5,18 +5,6 @@ name: Test
 
 on:
   push:
-    branches:
-      - master
-    paths-ignore:
-      - '**.md'
-      - '.github/'
-      - '!.github/workflows/test.yml'
-  pull_request:
-    types: [ opened, synchronize, reopened ]  # Same as default
-    paths-ignore:
-      - '**.md'
-      - '.github/'
-      - '!.github/workflows/test.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -30,58 +18,35 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
-          - 2019.4.40f1
-        include:
-          - unityVersion: 2019.4.40f1
-            octocov: true
+          - 2022.2.5f1
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          submodules: false
-          lfs: false
-
       - name: Crete project for tests
         uses: nowsprinting/create-unity-project-action@v2
         with:
           project-path: UnityProject~
 
-      - uses: actions/cache@v3
+      - name: Checkout repository into created project
+        uses: actions/checkout@v3
         with:
-          path: ${{ env.CREATED_PROJECT_PATH }}/Library
-          key: Library-${{ matrix.unityVersion }}
-          restore-keys: |
-            Library-
+          submodules: false
+          lfs: false
+          path: UnityProject~/Packages/com.nowsprinting.create-script-folders-with-tests
 
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-
-      - name: Set npm bin path for cache
-        run: echo "path=$(npm bin -g)" >> "$GITHUB_OUTPUT"
-        id: npm_bin
-
-      - uses: actions/cache@v3
-        with:
-          path: ${{ steps.npm_bin.outputs.path }}
-          key: npm-${{ hashFiles('.github/workflows/test.yml') }}
-
-      - name: Set package name
-        run: |
-          echo "package_name=$(grep -o -E '"name": "(.+)"' ./package.json | cut -d ' ' -f2)" >> "$GITHUB_ENV"
 
       - name: Install dependencies
         run: |
           npm install -g openupm-cli
           openupm add -f com.unity.test-framework@1.3.2
           openupm add -f com.unity.testtools.codecoverage@1.2.2
-          openupm add -ft "${{ env.package_name }}"@file:../../
         working-directory: ${{ env.CREATED_PROJECT_PATH }}
 
       - name: Set coverage assembly filters
         run: |
-          assemblies=$(find . -name "*.asmdef" -maxdepth 3 | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//)
+          assemblies=$(find ./Packages -name "*.asmdef" -maxdepth 3 | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//)
           # shellcheck disable=SC2001,SC2048,SC2086
           echo "assembly_filters=$(echo ${assemblies[*]} | sed -e s/\ /,/g),+<assets>,-*.Tests" >> "$GITHUB_ENV"
 
@@ -101,14 +66,6 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets[env.secret_key] }}
         id: test
-
-      - name: Set coverage path for octocov
-        run: sed -i -r 's/\.\/Logs/${{ steps.test.outputs.coveragePath }}/' .octocov.yml
-        if: ${{ matrix.octocov }}
-
-      - name: Run octocov
-        uses: k1LoW/octocov-action@v0
-        if: ${{ matrix.octocov }}
 
       - name: Upload test results
         uses: actions/upload-artifact@v3

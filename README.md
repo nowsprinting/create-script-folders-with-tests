@@ -69,6 +69,10 @@ Packages
            └── YourFeature.Tests.asmdef
 ```
 
+> **Warning**  
+> Move folders using JetBrains Rider.
+> Because to update DotSettings files (see below).
+
 
 ### Assembly Definition References in asmdefs
 
@@ -99,6 +103,10 @@ This will result in the expected namespace per folder as follows.
 - Scripts/Runtime: YourFeature
 - Tests/Editor: YourFeature.Editor
 - Tests/Runtime: YourFeature
+
+> **Warning**  
+> Under Packages namespace resolution works with Unity 2020.2 or later.
+> Because to use the Root Namespace property of asmdef.
 
 See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
 

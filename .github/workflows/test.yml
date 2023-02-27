@@ -5,18 +5,6 @@ name: Test
 
 on:
   push:
-    branches:
-      - master
-    paths-ignore:
-      - '**.md'
-      - '.github/'
-      - '!.github/workflows/test.yml'
-  pull_request:
-    types: [ opened, synchronize, reopened ]  # Same as default
-    paths-ignore:
-      - '**.md'
-      - '.github/'
-      - '!.github/workflows/test.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -31,9 +19,9 @@ jobs:
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 2019.4.40f1
-        include:
-          - unityVersion: 2019.4.40f1
-            octocov: true
+          - 2020.3.45f1
+          - 2021.3.19f1
+          - 2022.2.8f1
 
     steps:
       - name: Checkout repository

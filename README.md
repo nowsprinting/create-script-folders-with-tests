@@ -9,8 +9,9 @@ This Unity editor extensions create script folders (Editor, Runtime, and each Te
 
 ## Features
 
-When opening the context menu and select **Create | C# Script Folders and Assemblies with Tests**,
-The root folder (e.g., named "YourFeature") and below will be created as follows.
+When opening the context menu and select
+**Create > C# Script Folders and Assemblies with Tests**
+, The root folder (e.g., named **YourFeature**) and below will be created as follows.
 
 ### Creating folders and asmdefs
 
@@ -48,11 +49,11 @@ Packages
               └── YourFeature.Tests.asmdef
 ```
 
-Package folder (e.g., named "your.package.name") must be created in before.
+Package folder (e.g., named **your.package.name**) must be created in before.
 Because can not open the context menu directly under the Packages folder.
 
-After creating folders, move the Editor, Runtime and Tests folders directly under the "your.package.name" folder.
-And remove the "YourFeature" folder.
+After creating folders, move the Editor, Runtime and Tests folders directly under the **your.package.name** folder.
+And remove the **YourFeature** folder.
 Then it will be the same as the official [package layout](https://docs.unity3d.com/Manual/cus-layout.html).
 
 ```
@@ -113,16 +114,34 @@ See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.
 
 ## Installation
 
-If you installed [openupm-cli](https://github.com/openupm/openupm-cli), run the command below
+You can choose from two typical installation methods.
+
+### Install via Package Manager window
+
+1. Open the **Package Manager** tab in Player Settings window (**Editor > Player Settings**)
+2. Click **+** button under the **Scoped Registries** and enter the following settings (figure 1.):
+   1. **Name:** `package.openupm.com`
+   2. **URL:** `https://package.openupm.com`
+   3. **Scope(s):** `com.nowsprinting`
+3. Open the Package Manager window (**Window > Package Manager**) and select **My Registries** in registries drop-down list (figure 2.)
+4. Click **Install** button on the `com.nowsprinting.create-script-folders-with-tests` package
+
+**Fugure 1.** Package Manager tab in Player Settings window.
+
+![](Documentation~/ProjectSettings_Dark.png#gh-dark-mode-only)
+![](Documentation~/ProjectSettings_Light.png#gh-light-mode-only)
+
+**Fugure 2.** Select registries drop-down list in Package Manager window.
+
+![](Documentation~/PackageManager_Dark.png/#gh-dark-mode-only)
+![](Documentation~/PackageManager_Light.png/#gh-light-mode-only)
+
+### Install via OpenUPM-CLI
+
+If you installed [openupm-cli](https://github.com/openupm/openupm-cli), run the command below:
 
 ```bash
 openupm add com.nowsprinting.create-script-folders-with-tests
-```
-
-Or open Package Manager window (Window | Package Manager) and add package from git URL
-
-```
-https://github.com/nowsprinting/create-script-folders-with-tests.git
 ```
 
 
@@ -135,12 +154,23 @@ MIT License
 
 Open an issue or create a pull request.
 
-Be grateful if you could label the PR as `enhancement`, `bug`, `chore` and `documentation`. See [PR Labeler settings](.github/pr-labeler.yml) for automatically labeling from the branch name.
+Be grateful if you could label the pull request as `enhancement`, `bug`, `chore`, and `documentation`. See [PR Labeler settings](.github/pr-labeler.yml) for automatically labeling from the branch name.
+
+
+## How to development
+
+Add this repository as a submodule to the Packages/ directory in your project.
+
+Run the command below:
+
+```bash
+git submodule add https://github.com/nowsprinting/create-script-folders-with-tests.git Packages/com.nowsprinting.create-script-folders-with-tests
+```
 
 
 ## Release workflow
 
-Run `Actions | Create release pull request | Run workflow` and merge created PR.
+Run **Actions > Create release pull request > Run workflow** and merge created pull request.
 (Or bump version in package.json on default branch)
 
 Then, Will do the release process automatically by [Release](.github/workflows/release.yml) workflow.

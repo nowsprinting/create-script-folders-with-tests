@@ -9,8 +9,9 @@ This Unity editor extensions create script folders (Editor, Runtime, and each Te
 
 ## Features
 
-When opening the context menu and select **Create | C# Script Folders and Assemblies with Tests**,
-The root folder (e.g., named "YourFeature") and below will be created as follows.
+When opening the context menu and select
+**Create > C# Script Folders and Assemblies with Tests**
+, The root folder (e.g., named **YourFeature**) and below will be created as follows.
 
 ### Creating folders and asmdefs
 
@@ -48,11 +49,11 @@ Packages
               └── YourFeature.Tests.asmdef
 ```
 
-Package folder (e.g., named "your.package.name") must be created in before.
+Package folder (e.g., named **your.package.name**) must be created in before.
 Because can not open the context menu directly under the Packages folder.
 
-After creating folders, move the Editor, Runtime and Tests folders directly under the "your.package.name" folder.
-And remove the "YourFeature" folder.
+After creating folders, move the Editor, Runtime and Tests folders directly under the **your.package.name** folder.
+And remove the **YourFeature** folder.
 Then it will be the same as the official [package layout](https://docs.unity3d.com/Manual/cus-layout.html).
 
 ```

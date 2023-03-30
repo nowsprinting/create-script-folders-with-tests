@@ -138,6 +138,17 @@ Open an issue or create a pull request.
 Be grateful if you could label the PR as `enhancement`, `bug`, `chore` and `documentation`. See [PR Labeler settings](.github/pr-labeler.yml) for automatically labeling from the branch name.
 
 
+## How to development
+
+Add this repository as a submodule to the Packages/ directory in your project.
+
+Run the command below:
+
+```bash
+git submodule add https://github.com/nowsprinting/create-script-folders-with-tests.git Packages/com.nowsprinting.create-script-folders-with-tests
+```
+
+
 ## Release workflow
 
 Run `Actions | Create release pull request | Run workflow` and merge created PR.

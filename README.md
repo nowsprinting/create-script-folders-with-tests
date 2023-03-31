@@ -4,12 +4,12 @@
 [![Test](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/test.yml/badge.svg)](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/test.yml)
 [![openupm](https://img.shields.io/npm/v/com.nowsprinting.create-script-folders-with-tests?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.nowsprinting.create-script-folders-with-tests/)
 
-This Unity editor extensions create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).
+This Unity editor extension creates script folders (Editor, Runtime, and each Tests) containing assembly definition files (.asmdef).
 
 
 ## Features
 
-When opening the context menu and select
+When opening the context menu and selecting
 **Create > C# Script Folders and Assemblies with Tests**
 , The root folder (e.g., named **YourFeature**) and below will be created as follows.
 
@@ -49,10 +49,10 @@ Packages
               └── YourFeature.Tests.asmdef
 ```
 
-Package folder (e.g., named **your.package.name**) must be created in before.
-Because can not open the context menu directly under the Packages folder.
+Package folder (e.g., named **your.package.name**) must be created before.
+Because you can not open the context menu directly under the Packages folder.
 
-After creating folders, move the Editor, Runtime and Tests folders directly under the **your.package.name** folder.
+After creating folders, move the Editor, Runtime, and Tests folders directly under the **your.package.name** folder.
 And remove the **YourFeature** folder.
 Then it will be the same as the official [package layout](https://docs.unity3d.com/Manual/cus-layout.html).
 
@@ -80,7 +80,7 @@ Packages
 "Assembly Definition References" in each asmdef are set as follows.
 
 - `YourFeature.Editor` has references to `YourFeature`
-- `YourFeature` has not references
+- `YourFeature` has no references
 - `YourFeature.Tests` has references to `YourFeature`
 - `YourFeature.Editor.Tests` has references to `YourFeature` and `YourFeature.Editor`
 
@@ -126,12 +126,12 @@ You can choose from two typical installation methods.
 3. Open the Package Manager window (**Window > Package Manager**) and select **My Registries** in registries drop-down list (figure 2.)
 4. Click **Install** button on the `com.nowsprinting.create-script-folders-with-tests` package
 
-**Fugure 1.** Package Manager tab in Player Settings window.
+**Figure 1.** Package Manager tab in Player Settings window.
 
 ![](Documentation~/ProjectSettings_Dark.png#gh-dark-mode-only)
 ![](Documentation~/ProjectSettings_Light.png#gh-light-mode-only)
 
-**Fugure 2.** Select registries drop-down list in Package Manager window.
+**Figure 2.** Select registries drop-down list in Package Manager window.
 
 ![](Documentation~/PackageManager_Dark.png/#gh-dark-mode-only)
 ![](Documentation~/PackageManager_Light.png/#gh-light-mode-only)
@@ -174,9 +174,9 @@ Run **Actions > Create release pull request > Run workflow** and merge created p
 (Or bump version in package.json on default branch)
 
 Then, Will do the release process automatically by [Release](.github/workflows/release.yml) workflow.
-And after tagged, OpenUPM retrieves the tag and updates it.
+And after tagging, OpenUPM retrieves the tag and updates it.
 
 Do **NOT** manually operation the following operations:
 
-- Create release tag
+- Create a release tag
 - Publish draft releases

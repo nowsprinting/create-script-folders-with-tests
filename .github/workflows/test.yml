@@ -9,23 +9,25 @@ on:
       - master
     paths-ignore:
       - '**.md'
-      - '.github/'
+      - '.github/**'
       - '!.github/workflows/test.yml'
   pull_request:
     types: [ opened, synchronize, reopened ]  # Same as default
     paths-ignore:
       - '**.md'
-      - '.github/'
+      - '.github/**'
       - '!.github/workflows/test.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions: write-all
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -122,6 +124,8 @@ jobs:
   notify:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     if: always()
 
     steps:

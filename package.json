@@ -9,7 +9,9 @@
   "documentationUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/blob/master/README.md",
   "files": [
     "Documentation~",
+    "Editor",
     "Editor*",
+    "Tests",
     "Tests*",
     "CHANGELOG.md*",
     "LICENSE.md*",

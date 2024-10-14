@@ -118,6 +118,9 @@ namespace CreateScriptFoldersWithTests.Editor
 
         private static void CreateScriptAssetWithContent(string path, string content)
         {
+#if UNITY_6000_0
+            ProjectWindowUtil.CreateScriptAssetWithContent(path, content);
+#else
             var projectWindowUtilType = typeof(ProjectWindowUtil);
             var createScriptAssetWithContentMethod = projectWindowUtilType.GetMethod("CreateScriptAssetWithContent",
                 BindingFlags.Static | BindingFlags.NonPublic);
@@ -128,6 +131,7 @@ namespace CreateScriptFoldersWithTests.Editor
             }
 
             createScriptAssetWithContentMethod.Invoke(null, new object[] { path, content });
+#endif
         }
 
         private static bool IsUnderAssets(string pathName)

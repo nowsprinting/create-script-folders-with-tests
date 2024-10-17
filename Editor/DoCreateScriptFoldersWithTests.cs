@@ -118,7 +118,7 @@ namespace CreateScriptFoldersWithTests.Editor
 
         private static void CreateScriptAssetWithContent(string path, string content)
         {
-#if UNITY_6000_0
+#if UNITY_6000_0_OR_NEWER
             ProjectWindowUtil.CreateScriptAssetWithContent(path, content);
 #else
             var projectWindowUtilType = typeof(ProjectWindowUtil);

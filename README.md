@@ -70,7 +70,7 @@ Packages
            └── YourFeature.Tests.asmdef
 ```
 
-> **Warning**  
+> [!WARNING]  
 > Move folders using JetBrains Rider.
 > Because to update DotSettings files (see below).
 
@@ -105,7 +105,7 @@ This will result in the expected namespace per folder as follows.
 - Tests/Editor: YourFeature.Editor
 - Tests/Runtime: YourFeature
 
-> **Warning**  
+> [!WARNING]  
 > Under Packages namespace resolution works with Unity 2020.2 or later.
 > Because to use the Root Namespace property of asmdef.
 

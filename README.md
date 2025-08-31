@@ -92,18 +92,16 @@ graph RL
 ```
 
 
+### Creating AssemblyInfo.cs files for friend assemblies
+
+Creates an AssemblyInfo.cs file for each assembly to mark **Assembly Definition References** as [Friend assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/friend).
+This allows access to `internal` types and members.
+
+
 ### Creating DotSettings files
 
-And creating .csproj.DotSettings file for each assembly.
+Creates .csproj.DotSettings file for each assembly.
 This file is set up to make the [Namespace does not correspond to file location](https://www.jetbrains.com/help/rider/CheckNamespace.html) inspection work as expected in JetBrains Rider.
-Do not forget to commit .DotSettings files for that project.
-
-Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders:
-
-- Scripts
-- Scripts/Runtime
-- Tests
-- Tests/Runtime
 
 This will result in the expected namespace per folder as follows:
 
@@ -111,6 +109,17 @@ This will result in the expected namespace per folder as follows:
 - Scripts/Runtime: `YourFeature`
 - Tests/Editor: `YourFeature.Editor`
 - Tests/Runtime: `YourFeature`
+
+> [!TIP]  
+> `Tests` is not included in the namespace.
+> When the same namespaces as the production code and test code are used, `using` directives are not required.
+
+Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders:
+
+- Scripts
+- Scripts/Runtime
+- Tests
+- Tests/Runtime
 
 > [!WARNING]  
 > Under Packages namespace resolution works with Unity 2020.2 or later.

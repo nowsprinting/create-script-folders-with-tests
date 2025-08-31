@@ -167,5 +167,33 @@ namespace CreateScriptFoldersWithTests.Editor
 
             File.Delete(DotSettingsPath);
         }
+
+        [Test]
+        public void Action_PackagesRuntimeAssemblyInfoPath()
+        {
+            var assemblyInfoPath = Path.Combine(_rootFolderPath, "Runtime", "AssemblyInfo.cs");
+            Assert.That(File.Exists(assemblyInfoPath), Is.True);
+        }
+
+        [Test]
+        public void Action_PackagesEditorAssemblyInfoPath()
+        {
+            var assemblyInfoPath = Path.Combine(_rootFolderPath, "Editor", "AssemblyInfo.cs");
+            Assert.That(File.Exists(assemblyInfoPath), Is.True);
+        }
+
+        [Test]
+        public void Action_PackagesTestsRuntimeAssemblyInfoPath()
+        {
+            var assemblyInfoPath = Path.Combine(_rootFolderPath, "Tests", "Runtime", "AssemblyInfo.cs");
+            Assert.That(File.Exists(assemblyInfoPath), Is.True);
+        }
+
+        [Test]
+        public void Action_PackagesTestsEditorAssemblyInfo()
+        {
+            var assemblyInfoPath = Path.Combine(_rootFolderPath, "Tests", "Editor", "AssemblyInfo.cs");
+            Assert.That(File.Exists(assemblyInfoPath), Is.True);
+        }
     }
 }

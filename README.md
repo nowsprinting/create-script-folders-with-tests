@@ -88,6 +88,7 @@ graph RL
     Runtime.Tests --> Runtime
     Editor.Tests --> Runtime
     Editor.Tests --> Editor
+    Editor.Tests --> Runtime.Tests
 ```
 
 

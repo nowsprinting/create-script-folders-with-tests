@@ -1,13 +1,11 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.IO;
-using System.Reflection;
 using System.Text;
 using CreateScriptFoldersWithTests.Editor.Internals;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
-using UnityEngine;
 
 namespace CreateScriptFoldersWithTests.Editor
 {
@@ -58,7 +56,15 @@ namespace CreateScriptFoldersWithTests.Editor
             {
                 asmdef.autoReferenced = false;
                 asmdef.SetForTestAssembly();
-                asmdef.AddReferences(secondLayerName == Editor ? $"{moduleName}.{Editor}" : moduleName);
+                if (secondLayerName == Editor)
+                {
+                    asmdef.AddReferences($"{moduleName}.{Editor}");
+                    asmdef.AddReferences($"{moduleName}.{Tests}");
+                }
+                else
+                {
+                    asmdef.AddReferences(moduleName);
+                }
             }
 
             if (secondLayerName == Editor)

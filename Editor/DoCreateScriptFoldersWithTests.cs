@@ -6,6 +6,10 @@ using System.Text;
 using CreateScriptFoldersWithTests.Editor.Internals;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
+#if !UNITY_6000_0_OR_NEWER
+using System.Reflection;
+using UnityEngine;
+#endif
 
 namespace CreateScriptFoldersWithTests.Editor
 {

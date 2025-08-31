@@ -92,6 +92,12 @@ graph RL
 ```
 
 
+### Creating AssemblyInfo.cs files for friend assemblies
+
+Creates an AssemblyInfo.cs file for each assembly to mark **Assembly Definition References** as [Friend assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/friend).
+This allows access to `internal` types and members.
+
+
 ### Creating DotSettings files
 
 Creates .csproj.DotSettings file for each assembly.

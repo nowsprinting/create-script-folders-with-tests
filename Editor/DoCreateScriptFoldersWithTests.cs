@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System;
 using System.IO;
 using System.Text;
 using CreateScriptFoldersWithTests.Editor.Internals;
@@ -47,6 +48,7 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             AssetDatabase.CreateFolder(PathCombineAllowNull(pathName, firstLayerName), secondLayerName);
             CreateAssemblyDefinitionFile(pathName, firstLayerName, secondLayerName);
+            CreateAssemblyInfoFile(pathName, firstLayerName, secondLayerName);
             CreateDotSettingsFile(pathName, firstLayerName, secondLayerName);
         }
 
@@ -157,6 +159,63 @@ namespace CreateScriptFoldersWithTests.Editor
         private static string PathCombineAllowNull(string pathName, string firstLayerName)
         {
             return firstLayerName != null ? Path.Combine(pathName, firstLayerName) : pathName;
+        }
+
+        private static void CreateAssemblyInfoFile(string pathName, string firstLayerName, string secondLayerName)
+        {
+            var moduleName = Path.GetFileName(pathName);
+            var internalsVisibleToAssemblies =
+                GetInternalsVisibleToAssemblies(moduleName, firstLayerName, secondLayerName);
+
+            var content = GenerateAssemblyInfoContent(internalsVisibleToAssemblies);
+            var assemblyInfoPath = Path.Combine(PathCombineAllowNull(pathName, firstLayerName), secondLayerName,
+                "AssemblyInfo.cs");
+            CreateScriptAssetWithContent(assemblyInfoPath, content);
+        }
+
+        private static string[] GetInternalsVisibleToAssemblies(string moduleName, string firstLayerName,
+            string secondLayerName)
+        {
+            if ((firstLayerName == Scripts || firstLayerName == null) && secondLayerName == Runtime)
+            {
+                return new[]
+                {
+                    $"{moduleName}.Editor",
+                    $"{moduleName}.Editor.Tests",
+                    $"{moduleName}.Tests"
+                };
+            }
+
+            if ((firstLayerName == Scripts || firstLayerName == null) && secondLayerName == Editor)
+            {
+                return new[] { $"{moduleName}.Editor.Tests" };
+            }
+
+            if (firstLayerName == Tests && secondLayerName == Runtime)
+            {
+                return new[] { $"{moduleName}.Editor.Tests" };
+            }
+
+            return Array.Empty<string>();
+        }
+
+        private static string GenerateAssemblyInfoContent(string[] internalsVisibleToAssemblies)
+        {
+            if (internalsVisibleToAssemblies.Length == 0)
+            {
+                return string.Empty;
+            }
+
+            var content = new StringBuilder();
+            content.AppendLine("using System.Runtime.CompilerServices;");
+            content.AppendLine();
+
+            foreach (var assembly in internalsVisibleToAssemblies)
+            {
+                content.AppendLine($"[assembly: InternalsVisibleTo(\"{assembly}\")]");
+            }
+
+            return content.ToString();
         }
     }
 }

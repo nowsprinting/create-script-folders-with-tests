@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.IO;
@@ -131,6 +131,7 @@ namespace CreateScriptFoldersWithTests.Editor
         public void Action_CreatedEditorTestsFolderContainingAsmdef()
         {
             const string EditorAssemblyName = ModuleName + ".Editor";
+            const string RuntimeTestAssemblyName = ModuleName + ".Tests";
             const string AssemblyName = EditorAssemblyName + ".Tests";
             var file = AssetDatabase.LoadAssetAtPath<AssemblyDefinitionAsset>(
                 Path.Combine(_rootFolderPath, "Tests", "Editor", $"{AssemblyName}.asmdef"));
@@ -144,6 +145,7 @@ namespace CreateScriptFoldersWithTests.Editor
             Assert.That(asmdef.includePlatforms, Does.Contain("Editor"));
             Assert.That(asmdef.references, Does.Contain(ModuleName));
             Assert.That(asmdef.references, Does.Contain(EditorAssemblyName));
+            Assert.That(asmdef.references, Does.Contain(RuntimeTestAssemblyName));
 #if UNITY_2019_3_OR_NEWER
             Assert.That(asmdef.references, Does.Contain("UnityEngine.TestRunner"));
             Assert.That(asmdef.references, Does.Contain("UnityEditor.TestRunner"));

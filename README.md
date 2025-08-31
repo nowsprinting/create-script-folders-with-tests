@@ -3,6 +3,7 @@
 [![Meta file check](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/metacheck.yml/badge.svg)](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/metacheck.yml)
 [![Test](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/test.yml/badge.svg)](https://github.com/nowsprinting/create-script-folders-with-tests/actions/workflows/test.yml)
 [![openupm](https://img.shields.io/npm/v/com.nowsprinting.create-script-folders-with-tests?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.nowsprinting.create-script-folders-with-tests/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nowsprinting/create-script-folders-with-tests)
 
 This Unity editor extension creates script folders (Editor, Runtime, and each Tests) containing assembly definition files (.asmdef).
 
@@ -11,7 +12,7 @@ This Unity editor extension creates script folders (Editor, Runtime, and each Te
 
 When opening the context menu and selecting
 **Create > C# Script Folders and Assemblies with Tests**
-, The root folder (e.g., named **YourFeature**) and below will be created as follows.
+The root folder (e.g., named **YourFeature**) and all folders below it will be created as follows:
 
 ### Creating folders and asmdefs
 
@@ -49,8 +50,9 @@ Packages
               └── YourFeature.Tests.asmdef
 ```
 
-Package folder (e.g., named **your.package.name**) must be created before.
-Because you can not open the context menu directly under the Packages folder.
+> [!IMPORTANT]  
+> Package folder (e.g., named **your.package.name**) and package.json must be created before.
+> Because you can not open the context menu directly under the Packages folder.
 
 After creating folders, move the Editor, Runtime, and Tests folders directly under the **your.package.name** folder.
 And remove the **YourFeature** folder.
@@ -77,12 +79,16 @@ Packages
 
 ### Assembly Definition References in asmdefs
 
-"Assembly Definition References" in each asmdef are set as follows.
+**Assembly Definition References** in each asmdef are set as follows:
 
-- `YourFeature.Editor` has references to `YourFeature`
-- `YourFeature` has no references
-- `YourFeature.Tests` has references to `YourFeature`
-- `YourFeature.Editor.Tests` has references to `YourFeature` and `YourFeature.Editor`
+```mermaid
+graph RL
+    Runtime
+    Editor --> Runtime
+    Runtime.Tests --> Runtime
+    Editor.Tests --> Runtime
+    Editor.Tests --> Editor
+```
 
 
 ### Creating DotSettings files
@@ -91,58 +97,46 @@ And creating .csproj.DotSettings file for each assembly.
 This file is set up to make the [Namespace does not correspond to file location](https://www.jetbrains.com/help/rider/CheckNamespace.html) inspection work as expected in JetBrains Rider.
 Do not forget to commit .DotSettings files for that project.
 
-Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders.
+Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders:
 
 - Scripts
 - Scripts/Runtime
 - Tests
 - Tests/Runtime
 
-This will result in the expected namespace per folder as follows.
+This will result in the expected namespace per folder as follows:
 
-- Scripts/Editor: YourFeature.Editor
-- Scripts/Runtime: YourFeature
-- Tests/Editor: YourFeature.Editor
-- Tests/Runtime: YourFeature
+- Scripts/Editor: `YourFeature.Editor`
+- Scripts/Runtime: `YourFeature`
+- Tests/Editor: `YourFeature.Editor`
+- Tests/Runtime: `YourFeature`
 
 > [!WARNING]  
 > Under Packages namespace resolution works with Unity 2020.2 or later.
 > Because to use the Root Namespace property of asmdef.
 
-See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
+See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
 
 
 ## Installation
 
-You can choose from two typical installation methods.
+1. Open the Project Settings window (**Editor > Project Settings**) and select **Package Manager** tab (figure 1.)
+2. Click **+** button under the **Scoped Registries** and enter the following settings:
+    1. **Name:** `package.openupm.com`
+    2. **URL:** `https://package.openupm.com`
+    3. **Scope(s):** `com.nowsprinting`
+3. Open the Package Manager window (**Window > Package Manager**) and select **My Registries** tab (figure 2.)
+4. Select **Create Script Folders and Assemblies with Tests** and click the **Install** button
 
-### Install via Package Manager window
+**Figure 1.** Scoped Registries setting in Project Settings window
 
-1. Open the **Package Manager** tab in Project Settings window (**Editor > Project Settings**)
-2. Click **+** button under the **Scoped Registries** and enter the following settings (figure 1.):
-   1. **Name:** `package.openupm.com`
-   2. **URL:** `https://package.openupm.com`
-   3. **Scope(s):** `com.nowsprinting`
-3. Open the Package Manager window (**Window > Package Manager**) and select **My Registries** in registries drop-down list (figure 2.)
-4. Click **Install** button on the `com.nowsprinting.create-script-folders-with-tests` package
+![](Documentation~/ScopedRegistries_Dark.png#gh-dark-mode-only)
+![](Documentation~/ScopedRegistries_Light.png#gh-light-mode-only)
 
-**Figure 1.** Package Manager tab in Project Settings window.
-
-![](Documentation~/ProjectSettings_Dark.png#gh-dark-mode-only)
-![](Documentation~/ProjectSettings_Light.png#gh-light-mode-only)
-
-**Figure 2.** Select registries drop-down list in Package Manager window.
+**Figure 2.** My Registries in Package Manager window
 
 ![](Documentation~/PackageManager_Dark.png#gh-dark-mode-only)
 ![](Documentation~/PackageManager_Light.png#gh-light-mode-only)
-
-### Install via OpenUPM-CLI
-
-If you installed [openupm-cli](https://github.com/openupm/openupm-cli), run the command below:
-
-```bash
-openupm add com.nowsprinting.create-script-folders-with-tests
-```
 
 
 ## License

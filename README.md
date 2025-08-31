@@ -78,12 +78,16 @@ Packages
 
 ### Assembly Definition References in asmdefs
 
-"Assembly Definition References" in each asmdef are set as follows.
+**Assembly Definition References** in each asmdef are set as follows.
 
-- `YourFeature.Editor` has references to `YourFeature`
-- `YourFeature` has no references
-- `YourFeature.Tests` has references to `YourFeature`
-- `YourFeature.Editor.Tests` has references to `YourFeature` and `YourFeature.Editor`
+```mermaid
+graph RL
+    Runtime
+    Editor --> Runtime
+    Runtime.Tests --> Runtime
+    Editor.Tests --> Runtime
+    Editor.Tests --> Editor
+```
 
 
 ### Creating DotSettings files
@@ -110,7 +114,7 @@ This will result in the expected namespace per folder as follows.
 > Under Packages namespace resolution works with Unity 2020.2 or later.
 > Because to use the Root Namespace property of asmdef.
 
-See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
+See also: [Code Inspections in C# | JetBrains Rider Documentation](https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html)
 
 
 ## Installation

@@ -12,7 +12,7 @@ This Unity editor extension creates script folders (Editor, Runtime, and each Te
 
 When opening the context menu and selecting
 **Create > C# Script Folders and Assemblies with Tests**
-, The root folder (e.g., named **YourFeature**) and below will be created as follows.
+The root folder (e.g., named **YourFeature**) and all folders below it will be created as follows:
 
 ### Creating folders and asmdefs
 
@@ -50,8 +50,9 @@ Packages
               └── YourFeature.Tests.asmdef
 ```
 
-Package folder (e.g., named **your.package.name**) must be created before.
-Because you can not open the context menu directly under the Packages folder.
+> [!IMPORTANT]  
+> Package folder (e.g., named **your.package.name**) and package.json must be created before.
+> Because you can not open the context menu directly under the Packages folder.
 
 After creating folders, move the Editor, Runtime, and Tests folders directly under the **your.package.name** folder.
 And remove the **YourFeature** folder.
@@ -78,7 +79,7 @@ Packages
 
 ### Assembly Definition References in asmdefs
 
-**Assembly Definition References** in each asmdef are set as follows.
+**Assembly Definition References** in each asmdef are set as follows:
 
 ```mermaid
 graph RL
@@ -96,19 +97,19 @@ And creating .csproj.DotSettings file for each assembly.
 This file is set up to make the [Namespace does not correspond to file location](https://www.jetbrains.com/help/rider/CheckNamespace.html) inspection work as expected in JetBrains Rider.
 Do not forget to commit .DotSettings files for that project.
 
-Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders.
+Specifically, disabled the [Namespace provider](https://www.jetbrains.com/help/rider/Refactorings__Adjust_Namespaces.html) for the following folders:
 
 - Scripts
 - Scripts/Runtime
 - Tests
 - Tests/Runtime
 
-This will result in the expected namespace per folder as follows.
+This will result in the expected namespace per folder as follows:
 
-- Scripts/Editor: YourFeature.Editor
-- Scripts/Runtime: YourFeature
-- Tests/Editor: YourFeature.Editor
-- Tests/Runtime: YourFeature
+- Scripts/Editor: `YourFeature.Editor`
+- Scripts/Runtime: `YourFeature`
+- Tests/Editor: `YourFeature.Editor`
+- Tests/Runtime: `YourFeature`
 
 > [!WARNING]  
 > Under Packages namespace resolution works with Unity 2020.2 or later.

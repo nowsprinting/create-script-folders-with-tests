@@ -170,11 +170,11 @@ namespace CreateScriptFoldersWithTests.Editor
             var assemblyInfoPath = Path.Combine(_rootFolderPath, "Scripts", "Runtime", "AssemblyInfo.cs");
             Assume.That(File.Exists(assemblyInfoPath), Is.True);
 
-            var actual = File.ReadAllText(assemblyInfoPath);
-            var expected = "using System.Runtime.CompilerServices;\r\n\r\n"
-                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor\")]\r\n"
-                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\r\n"
-                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Tests\")]\r\n";
+            var actual = File.ReadAllText(assemblyInfoPath).Replace("\r\n", "\n");
+            var expected = "using System.Runtime.CompilerServices;\n\n"
+                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor\")]\n"
+                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\n"
+                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Tests\")]\n";
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -184,9 +184,9 @@ namespace CreateScriptFoldersWithTests.Editor
             var assemblyInfoPath = Path.Combine(_rootFolderPath, "Scripts", "Editor", "AssemblyInfo.cs");
             Assume.That(File.Exists(assemblyInfoPath), Is.True);
 
-            var actual = File.ReadAllText(assemblyInfoPath);
-            var expected = "using System.Runtime.CompilerServices;\r\n\r\n"
-                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\r\n";
+            var actual = File.ReadAllText(assemblyInfoPath).Replace("\r\n", "\n");
+            var expected = "using System.Runtime.CompilerServices;\n\n"
+                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\n";
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -196,9 +196,9 @@ namespace CreateScriptFoldersWithTests.Editor
             var assemblyInfoPath = Path.Combine(_rootFolderPath, "Tests", "Runtime", "AssemblyInfo.cs");
             Assume.That(File.Exists(assemblyInfoPath), Is.True);
 
-            var actual = File.ReadAllText(assemblyInfoPath);
-            var expected = "using System.Runtime.CompilerServices;\r\n\r\n"
-                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\r\n";
+            var actual = File.ReadAllText(assemblyInfoPath).Replace("\r\n", "\n");
+            var expected = "using System.Runtime.CompilerServices;\n\n"
+                           + $"[assembly: InternalsVisibleTo(\"{ModuleName}.Editor.Tests\")]\n";
             Assert.That(actual, Is.EqualTo(expected));
         }
 

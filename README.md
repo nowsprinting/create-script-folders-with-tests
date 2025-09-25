@@ -5,7 +5,7 @@
 [![openupm](https://img.shields.io/npm/v/com.nowsprinting.create-script-folders-with-tests?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.nowsprinting.create-script-folders-with-tests/)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nowsprinting/create-script-folders-with-tests)
 
-This Unity editor extension creates script folders (Editor, Runtime, and each Tests) containing assembly definition files (.asmdef).
+A Unity editor extension that creates script folders (Editor, Runtime, and Tests) and adds an Assembly Definition File (.asmdef) to each.
 
 
 ## Features
@@ -16,7 +16,7 @@ The root folder (e.g., named **YourFeature**) and all folders below it will be c
 
 ### Creating folders and asmdefs
 
-#### Using under Assets folder
+#### When used under the Assets folder
 
 ```
 Assets
@@ -33,7 +33,7 @@ Assets
            └── YourFeature.Tests.asmdef
 ```
 
-#### Using under Packages folder
+#### When used under the Packages folder
 
 ```
 Packages
@@ -77,9 +77,9 @@ Packages
 > Because to update DotSettings files (see below).
 
 
-### Assembly Definition References in asmdefs
+### Set Assembly Definition References in asmdefs
 
-**Assembly Definition References** in each asmdef are set as follows:
+Set the **Assembly Definition References** in each asmdef as follows:
 
 ```mermaid
 graph RL
@@ -92,13 +92,13 @@ graph RL
 ```
 
 
-### Creating AssemblyInfo.cs files for friend assemblies
+### Creates AssemblyInfo.cs files for friend assemblies
 
 Creates an AssemblyInfo.cs file for each assembly to mark **Assembly Definition References** as [Friend assemblies](https://learn.microsoft.com/en-us/dotnet/standard/assembly/friend).
 This allows access to `internal` types and members.
 
 
-### Creating DotSettings files
+### Creates DotSettings files
 
 Creates .csproj.DotSettings file for each assembly.
 This file is set up to make the [Namespace does not correspond to file location](https://www.jetbrains.com/help/rider/CheckNamespace.html) inspection work as expected in JetBrains Rider.

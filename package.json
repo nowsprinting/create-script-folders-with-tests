@@ -1,6 +1,6 @@
 {
   "name": "com.nowsprinting.create-script-folders-with-tests",
-  "description": "Create script folders (Editor, Runtime, and each Tests) containing assembly definition file (.asmdef).",
+  "description": "Creates script folders (Editor, Runtime, and Tests) and adds an Assembly Definition File (.asmdef) to each",
   "version": "1.3.0",
   "author": "Koji Hasegawa <hasegawa@hubsys.co.jp> (https://github.com/nowsprinting)",
   "changelogUrl": "https://github.com/nowsprinting/create-script-folders-with-tests/releases",

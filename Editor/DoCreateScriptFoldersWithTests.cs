@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2025 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -10,6 +10,8 @@ using UnityEditor.ProjectWindowCallback;
 #if !UNITY_6000_0_OR_NEWER
 using System.Reflection;
 using UnityEngine;
+#elif UNITY_6000_4_OR_NEWER
+using UnityEngine; // for EntityId
 #endif
 
 namespace CreateScriptFoldersWithTests.Editor
@@ -17,7 +19,11 @@ namespace CreateScriptFoldersWithTests.Editor
     /// <summary>
     /// Create C# script folders and assemblies with tests.
     /// </summary>
+#if UNITY_6000_4_OR_NEWER
+    public class DoCreateScriptFoldersWithTests : AssetCreationEndAction
+#else
     public class DoCreateScriptFoldersWithTests : EndNameEditAction
+#endif
     {
         private const string Scripts = "Scripts";
         private const string Tests = "Tests";
@@ -25,7 +31,11 @@ namespace CreateScriptFoldersWithTests.Editor
         private const string Editor = "Editor";
 
         /// <inheritdoc/>
+#if UNITY_6000_4_OR_NEWER
+        public override void Action(EntityId entityId, string pathName, string resourceFile)
+#else
         public override void Action(int instanceId, string pathName, string resourceFile)
+#endif
         {
             var moduleName = Path.GetFileName(pathName);
             AssetDatabase.CreateFolder(Path.GetDirectoryName(pathName), moduleName);

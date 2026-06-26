@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using UnityEditor;
@@ -16,7 +16,11 @@ namespace CreateScriptFoldersWithTests.Editor
         private static void CreateFeatureFolderWithTestsMenuItem()
         {
             ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+#if UNITY_6000_4_OR_NEWER
+                EntityId.None,
+#else
                 0,
+#endif
                 ScriptableObject.CreateInstance<DoCreateScriptFoldersWithTests>(),
                 "New Feature",
                 EditorGUIUtility.IconContent(EditorResources.folderIconName).image as Texture2D,

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2025 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.IO;
@@ -33,7 +33,11 @@ namespace CreateScriptFoldersWithTests.Editor
             Assume.That(new FileInfo(ModuleName + ".Editor.Tests" + DotSettingsSuffix), Does.Not.Exist);
 
             var sut = ScriptableObject.CreateInstance<DoCreateScriptFoldersWithTests>();
+#if UNITY_6000_4_OR_NEWER
+            sut.Action(EntityId.None, _rootFolderPath, null);
+#else
             sut.Action(0, _rootFolderPath, null);
+#endif
             // I understand that it shouldn't be exercise within OneTimeSetUp. I did not have a choice.
         }
 

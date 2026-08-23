@@ -1,9 +1,8 @@
-// Copyright (c) 2021-2023 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace CreateScriptFoldersWithTests.Editor.Internals
 {
@@ -35,7 +34,7 @@ namespace CreateScriptFoldersWithTests.Editor.Internals
 
         public bool WasAddNamespaceFoldersToSkip()
         {
-            return _namespaceFoldersToSkip.Any();
+            return _namespaceFoldersToSkip.Count > 0;
         }
 
         public void Flush()

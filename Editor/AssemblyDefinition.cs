@@ -1,9 +1,8 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace CreateScriptFoldersWithTests.Editor
 {
@@ -16,13 +15,13 @@ namespace CreateScriptFoldersWithTests.Editor
     [SuppressMessage("ReSharper", "NotAccessedField.Global")]
     public class AssemblyDefinition
     {
-        public bool allowUnsafeCode; //Optional. Defaults to false.
+        public bool allowUnsafeCode;       //Optional. Defaults to false.
         public bool autoReferenced = true; //Optional. Defaults to true.
         public string[] defineConstraints; // Optional. The symbols that serve as constraints. Can be empty.
-        public string[] excludePlatforms; // Optional. The platform name strings to exclude or an empty array.
-        public string[] includePlatforms; // Optional. The platform name strings to exclude or an empty array.
-        public string name; // Required.
-        public bool noEngineReferences; // Optional. Defaults to false.
+        public string[] excludePlatforms;  // Optional. The platform name strings to exclude or an empty array.
+        public string[] includePlatforms;  // Optional. The platform name strings to exclude or an empty array.
+        public string name;                // Required.
+        public bool noEngineReferences;    // Optional. Defaults to false.
 
         public string[] optionalUnityReferences;
         // Optional. In earlier versions of Unity, this field serialized the Unity References : Test Assemblies option used to designate the assembly as a test assembly
@@ -37,7 +36,7 @@ namespace CreateScriptFoldersWithTests.Editor
         public string[] references;
         // Optional. References to other assemblies created with Assembly Definition assets.
 
-        public string rootNamespace; // Optional. The default namespace for scripts in this assembly definition.
+        public string rootNamespace;    // Optional. The default namespace for scripts in this assembly definition.
         public object[] versionDefines; // Optional. Contains an object for each version define.
 
         public void SetForTestAssembly()
@@ -57,10 +56,14 @@ namespace CreateScriptFoldersWithTests.Editor
         {
             if (references == null)
             {
-                references = new string[] { };
+                references = new[] { s };
+                return;
             }
 
-            references = references.Append(s).ToArray();
+            var newReferences = new string[references.Length + 1];
+            references.CopyTo(newReferences, 0);
+            newReferences[references.Length] = s;
+            references = newReferences;
         }
     }
 }
